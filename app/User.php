@@ -17,7 +17,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var array
      */
-    protected $fillable = ['email', 'avatar', 'password'];
+    protected $fillable = ['email', 'avatar', 'password', 'avatar_type'];
 
     public static $rules = [
         'email' => 'required|email|max:190|unique:users',
@@ -46,7 +46,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
 
     /**
-     * Set the user's email in lowercase.
+     * Set the user's avatar name.
      *
      * @param  string $avatar
      * @return void
@@ -54,6 +54,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function setAvatarAttribute($avatar)
     {
         $this->attributes['avatar'] = $avatar->hashName();
+        $this->attributes['avatar_type'] = $avatar->getMimeType();
     }
 
     /**

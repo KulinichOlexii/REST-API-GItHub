@@ -23,7 +23,6 @@ Route::group(['as' => 'api:', 'prefix' => 'api/auth/'], function () {
     Route::post('login', 'Auth\AuthController@authenticate');
 });
 
-
 /**
  * Routes for user
  */
@@ -32,14 +31,21 @@ Route::group(['as' => 'api:', 'prefix' => 'api/', 'middleware' => 'jwt.auth'], f
     /**
      * Routes for resource user
      */
-    Route::get('user', 'UsersController@all');
-    Route::get('user/{id}', 'UsersController@get');
-    Route::post('user', 'UsersController@add');
-    Route::put('user/{id}', 'UsersController@put');
-    Route::delete('user/{id}', 'UsersController@remove');
-});
+//    Route::get('user', 'UsersController@all');
+//    Route::get('user/{id}', 'UsersController@get');
+//    Route::post('user', 'UsersController@add');
+//    Route::put('user/{id}', 'UsersController@put');
+//    Route::delete('user/{id}', 'UsersController@remove');
 
-//Route::get(['storage/avatar/{filename}', 'middleware' => 'jwt.auth'], function ($filename){
-//
-//    return File::make(config('filesystems.disks.local' . '.avatar' . $filename))->response();
-//});
+
+    /**
+     * Routes for resource file
+     */
+    Route::group(['prefix' => 'storage/'], function () {
+//        Route::get('file', 'FilesController@all');
+          Route::get('file/{id}', 'FilesController@get');
+//        Route::post('file', 'FilesController@add');
+//        Route::put('file/{id}', 'FilesController@put');
+//        Route::delete('file/{id}', 'FilesController@remove');
+    });
+});

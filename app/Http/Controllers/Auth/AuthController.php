@@ -14,7 +14,7 @@ class AuthController extends BaseController
 {
 
     /**
-     * @var FileService $file
+     * @var FileService $fileService
      */
     protected $fileService;
 
@@ -31,7 +31,8 @@ class AuthController extends BaseController
      * @param  FileService $fileService
      * @return void
      */
-    public function __construct(Request $request, FileService $fileService) {
+    public function __construct(Request $request, FileService $fileService)
+    {
         $this->request = $request;
         $this->fileService = $fileService;
     }
@@ -41,7 +42,8 @@ class AuthController extends BaseController
      * @param  \App\User   $user
      * @return string
      */
-    protected function jwt(User $user) {
+    protected function jwt(User $user)
+    {
         $payload = [
             'iss' => "lumen-jwt", // Issuer of the token
             'sub' => $user->id, // Subject of the token
@@ -59,7 +61,8 @@ class AuthController extends BaseController
      * @param  \App\User   $user
      * @return mixed
      */
-    public function authenticate(User $user) {
+    public function authenticate(User $user)
+    {
         $this->validate($this->request, [
             'email'     => 'required|email',
             'password'  => 'required'
@@ -97,7 +100,6 @@ class AuthController extends BaseController
     public function register(Request $request)
     {
         $user = new User;
-        $filename = null;
         $this->validate($request, $user::$rules);
         if($request->file('avatar')){
             $uploadedFile = $request->file('avatar');
@@ -109,7 +111,7 @@ class AuthController extends BaseController
         $token = $this->jwt($user);
         $data = [
             'token' => $token,
-            'avatarLink' => $filename ? URL::asset('storage/avatar/'.$filename) : null
+            'avatarLink' => $user ? URL::asset('api/storage/file/' . $user->id . '?token=' . $token) : null
         ];
 
         return response()->json($data, Response::HTTP_CREATED);
