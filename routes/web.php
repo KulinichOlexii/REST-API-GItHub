@@ -14,3 +14,32 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+/**
+ * Routes for auth
+ */
+Route::group(['as' => 'api:', 'prefix' => 'api/auth/'], function () {
+    Route::post('register', 'Auth\AuthController@register');
+    Route::post('login', 'Auth\AuthController@authenticate');
+});
+
+
+/**
+ * Routes for user
+ */
+Route::group(['as' => 'api:', 'prefix' => 'api/', 'middleware' => 'jwt.auth'], function () {
+
+    /**
+     * Routes for resource user
+     */
+    Route::get('user', 'UsersController@all');
+    Route::get('user/{id}', 'UsersController@get');
+    Route::post('user', 'UsersController@add');
+    Route::put('user/{id}', 'UsersController@put');
+    Route::delete('user/{id}', 'UsersController@remove');
+});
+
+//Route::get(['storage/avatar/{filename}', 'middleware' => 'jwt.auth'], function ($filename){
+//
+//    return File::make(config('filesystems.disks.local' . '.avatar' . $filename))->response();
+//});

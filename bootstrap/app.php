@@ -27,6 +27,9 @@ $app->withFacades();
 
 $app->withEloquent();
 
+$app->configure('filesystems');
+
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -66,6 +69,9 @@ $app->singleton(
  $app->routeMiddleware([
      'auth' => App\Http\Middleware\Authenticate::class,
  ]);
+$app->routeMiddleware([
+    'jwt.auth' => App\Http\Middleware\JwtMiddleware::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -81,7 +87,6 @@ $app->singleton(
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

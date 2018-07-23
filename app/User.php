@@ -17,8 +17,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email',
+    protected $fillable = ['email', 'avatar', 'password'];
+
+    public static $rules = [
+        'email' => 'required|email|max:190|unique:users',
+        'password' => 'required|string|min:6',
+        'avatar' => 'file',
     ];
 
     /**
@@ -27,6 +31,39 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password', 'remember_token'
     ];
+
+    /**
+     * Set the user's email in lowercase.
+     *
+     * @param  string $email
+     * @return void
+     */
+    public function setEmailAttribute($email)
+    {
+        $this->attributes['email'] = strtolower($email);
+    }
+
+    /**
+     * Set the user's email in lowercase.
+     *
+     * @param  string $avatar
+     * @return void
+     */
+    public function setAvatarAttribute($avatar)
+    {
+        $this->attributes['avatar'] = $avatar->hashName();
+    }
+
+    /**
+     * Set the user's email in lowercase.
+     *
+     * @param  string $password
+     * @return void
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = app('hash')->make($password);
+    }
 }

@@ -13,7 +13,17 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
         'email' => $faker->email,
+    ];
+});
+
+/**
+ * Factory definition for model App\User.
+ */
+$factory->define(App\User::class, function ($faker) {
+    return [
+        'name'     => $faker->name,
+        'email'    => $faker->email,
+        'password' => app('hash')->make('12345'),
     ];
 });
