@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Filesystem\Factory;
 
 class AppServiceProvider extends ServiceProvider
 {

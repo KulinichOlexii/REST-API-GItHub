@@ -48,4 +48,12 @@ Route::group(['as' => 'api:', 'prefix' => 'api/', 'middleware' => 'jwt.auth'], f
 //        Route::put('file/{id}', 'FilesController@put');
 //        Route::delete('file/{id}', 'FilesController@remove');
     });
+
+    /**
+     * Routes for resource file
+     */
+    Route::group(['prefix' => 'github/', 'namespace' => 'GitHub'], function () {
+        Route::post('sendMessage', 'GitHubUsersController@sendMessage');
+    });
+
 });

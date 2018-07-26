@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\GitHubEvent;
+use App\Listeners\GitHubListener;
 use Laravel\Lumen\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -14,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'App\Events\ExampleEvent' => [
             'App\Listeners\ExampleListener',
+        ],
+        GitHubEvent::class => [
+            GitHubListener::class
         ],
     ];
 }

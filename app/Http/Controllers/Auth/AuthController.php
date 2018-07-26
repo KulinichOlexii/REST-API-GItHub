@@ -111,7 +111,7 @@ class AuthController extends BaseController
         $token = $this->jwt($user);
         $data = [
             'token' => $token,
-            'avatarLink' => $user ? URL::asset('api/storage/file/' . $user->id . '?token=' . $token) : null
+            'avatarLink' => $user && !empty($user->avatar) ? URL::asset('api/storage/file/' . $user->id . '?token=' . $token) : null
         ];
 
         return response()->json($data, Response::HTTP_CREATED);
