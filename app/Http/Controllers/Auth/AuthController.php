@@ -65,7 +65,7 @@ class AuthController extends BaseController
     {
         $this->validate($this->request, [
             'email'     => 'required|email',
-            'password'  => 'required'
+            'password'  => 'required|string|max:191|min:8'
         ]);
         // Find the user by email
         $user = User::where('email', $this->request->input('email'))->first();

@@ -20,8 +20,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $fillable = ['email', 'avatar', 'password', 'avatar_type'];
 
     public static $rules = [
-        'email' => 'required|email|max:190|unique:users',
-        'password' => 'required|string|min:6',
+        'email' => 'required|email|max:191|unique:users',
+        'password' => 'required|string|max:191|min:8',
         'avatar' => 'file',
     ];
 

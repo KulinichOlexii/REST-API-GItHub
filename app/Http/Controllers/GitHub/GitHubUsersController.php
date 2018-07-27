@@ -40,7 +40,7 @@ class GitHubUsersController extends Controller {
     {
         $this->validate($request, [
             'userNames'     => 'required|array',
-            'message'  => 'required'
+            'message'  => 'required|string|min:5'
         ]);
 
         foreach ($request->get('userNames') as $userName){
